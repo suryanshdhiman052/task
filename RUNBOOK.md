@@ -19,7 +19,7 @@ This is `us-east-1` by default. Stay there unless you change `aws_region` in **b
 
 ```bash
 git clone git@github.com:suryanshdhiman052/task.git
-cd catalog-prod-iac
+cd task
 aws sts get-caller-identity   # fail here, not 20 minutes into RDS
 
 terraform -chdir=bootstrap init
