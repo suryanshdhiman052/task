@@ -1,10 +1,3 @@
-variable "name" { type = string }
-variable "vpc_id" { type = string }
-variable "private_subnet_ids" { type = list(string) }
-variable "rds_sg_id" { type = string }
-variable "db_name" { type = string }
-variable "username" { type = string }
-
 resource "aws_db_subnet_group" "this" {
   name       = "${var.name}-pg"
   subnet_ids = var.private_subnet_ids
@@ -26,9 +19,9 @@ resource "aws_db_parameter_group" "this" {
   }
 }
 
-# Single-AZ + t4g.micro is the $150 cap trade-off. Multi-AZ on even db.t3.small
-# plus NAT + ALB would land near or over the cap; Multi-AZ on a production-sized
-# class would blow it by itself.
+# Single-AZ t4g.micro is the $150-cap trade-off. Multi-AZ db.t3.small plus
+# NAT+ALB already lands near the cap; a real prod class blows it alone.
+# Restore must NOT set snapshot_identifier on this resource (ForceNew).
 resource "aws_db_instance" "this" {
   identifier     = "${var.name}-pg"
   engine         = "postgres"

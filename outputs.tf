@@ -15,13 +15,17 @@ output "rds_address" {
   sensitive = true
 }
 
+output "db_cname" {
+  value = module.compute.db_cname
+}
+
 output "rds_secret_arn" {
   description = "Secrets Manager ARN for the RDS master user. Password never enters Terraform variables."
   value       = module.database.master_user_secret_arn
 }
 
 output "assets_bucket" {
-  value = module.compute.assets_bucket
+  value = module.storage.bucket
 }
 
 output "ecr_repository_url" {

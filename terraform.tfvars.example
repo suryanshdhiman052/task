@@ -3,6 +3,7 @@ project        = "catalog"
 environment    = "prod"
 domain_name    = "api.example.com"
 hosted_zone_id = "ZXXXXXXXXXXXXX"
+alert_email    = "ops@example.com"
 
 # Optional: after scripts/push-api.sh, point at the ECR URL from `terraform output ecr_repository_url`
 # and set container_command = [] so the image CMD (node /app/server.js) runs instead of the inline listener.

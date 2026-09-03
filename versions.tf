@@ -8,8 +8,9 @@ terraform {
     }
   }
 
-  # Chicken-and-egg: create the bucket/table with bootstrap/ first.
-  # Then: terraform init -backend-config=backend.hcl
+  # Requirement 4: remote state + lock. Empty block; real bucket/table come
+  # from backend.hcl after bootstrap/ (that is "configure first", req 7).
+  # The environment itself is still one `terraform apply`.
   backend "s3" {}
 }
 

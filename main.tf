@@ -6,6 +6,12 @@ module "networking" {
   app_port = var.container_port
 }
 
+module "storage" {
+  source = "./modules/storage"
+
+  name = "${var.project}-${var.environment}"
+}
+
 module "database" {
   source = "./modules/database"
 
@@ -33,6 +39,8 @@ module "compute" {
   container_port    = var.container_port
   container_user    = var.container_user
   health_path       = var.health_path
+  assets_bucket     = module.storage.bucket
+  assets_bucket_arn = module.storage.arn
   db_secret_arn     = module.database.master_user_secret_arn
   db_host           = module.database.address
   db_port           = module.database.port
