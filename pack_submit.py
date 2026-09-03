@@ -308,7 +308,6 @@ compute = drop_attrs(
         "unhealthy_threshold",
         "allow_overwrite",
         "image_tag_mutability",
-        "readonlyRootFilesystem",
         "ssl_policy",
         "retention_in_days",
     ],
@@ -324,12 +323,7 @@ compute = re.sub(
     "",
     compute,
 )
-# Drop linuxParameters block (multiline) before densify.
-compute = re.sub(
-    r"linuxParameters = \{\ncapabilities = \{ drop = \[\"ALL\"\] \}\n\}\n",
-    "",
-    compute,
-)
+# Keep linuxParameters capabilities drop ALL for non-root hardening in the paste.
 compute = re.sub(
     r"setting \{\nname = \"containerInsights\"\nvalue = \"enabled\"\n\}\n",
     "",
